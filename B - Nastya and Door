@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,k;
+        cin>>n>>k;
+        int arr[n+1];
+        for(int i=1;i<=n;i++)
+        {
+            cin>>arr[i];
+        }
+        int peak[n+1];
+        memset(peak,0,sizeof(peak));
+        int cnt=0,r=k,l=1,ans=0;
+
+        for(int i=2;i<k;i++)
+        {
+            if(arr[i]>arr[i-1]&& arr[i]>arr[i+1])
+            {
+                peak[i]=1;
+                if(cnt==0)
+                {
+                    l=1;
+                }
+                cnt++;
+            }
+        }
+
+
+        ans=cnt;
+
+
+
+
+        for(int left=3;left<=n-k+2;left++)
+        {
+            if(peak[left-1]==1)
+            {
+                cnt--;
+            }
+            r++;
+            if(arr[r-1]>arr[r-2]&& arr[r-1]>arr[r])
+            {
+                peak[r-1]=1;
+                cnt++;
+               // cout<<cnt<<endl;
+            }
+
+            if(cnt>ans)
+            {
+                ans=cnt;
+                l=left-1;
+
+            }
+        }
+        cout<<ans+1<<" "<<l<<endl;
+    }
+}
